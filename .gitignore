@@ -1,0 +1,25 @@
+# Node.js
+node_modules/
+dist/
+build/
+.env
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Misc
+backend/test_api_result.txt
+backend/test_output.txt
+backend/test_result.txt
