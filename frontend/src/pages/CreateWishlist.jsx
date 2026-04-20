@@ -39,9 +39,7 @@ function CreateWishlist() {
             exit={{ opacity: 0, y: -20 }}
             className="max-w-2xl mx-auto mt-8 pb-20 relative"
         >
-            {/* Background Glows */}
-            <div className="bg-glow-pink opacity-30"></div>
-            <div className="bg-glow-purple opacity-20" style={{ bottom: '-10%', right: '-10%' }}></div>
+            {/* Background Glows Removed */}
 
             <button 
                 onClick={() => navigate('/dashboard')}
@@ -50,15 +48,15 @@ function CreateWishlist() {
                 <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" /> Back to Dashboard
             </button>
 
-            <div className="glass-card p-10 rounded-[2.5rem] shadow-2xl border border-white/60 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500"></div>
+            <div className="glass-panel p-10 relative overflow-hidden group">
+                <div className="absolute top-0 left-0 w-full h-1.5 bg-[#C00645]"></div>
                 
                 <div className="mb-10 text-center">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-gradient-to-br from-pink-50 to-indigo-50 shadow-inner mb-4">
-                        <Sparkles className="text-indigo-600" size={32} />
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-[#E7CDCE] shadow-inner mb-4">
+                        <Sparkles className="text-[#C00645]" size={32} />
                     </div>
-                    <h2 className="text-3xl font-black text-gray-900 tracking-tight">Create New Registry</h2>
-                    <p className="text-gray-500 font-medium mt-2">Design a beautiful collection for your special moment</p>
+                    <h2 className="text-3xl font-extrabold text-gradient">Create New Registry</h2>
+                    <p className="text-gray-600 font-medium mt-2">Design a beautiful collection for your special moment</p>
                 </div>
 
                 <form onSubmit={onSubmit} className="space-y-8 relative z-10">
@@ -69,7 +67,7 @@ function CreateWishlist() {
                             </label>
                             <input
                                 type="text"
-                                className="w-full px-5 py-4 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 text-sm font-bold outline-none transition shadow-sm"
+                                className="glass-input w-full px-5 py-4 rounded-2xl text-sm font-bold text-gray-800 placeholder-gray-500"
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                                 placeholder="e.g. Dream Wedding Registry"
@@ -83,7 +81,7 @@ function CreateWishlist() {
                             </label>
                             <input
                                 type="date"
-                                className="w-full px-5 py-4 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 text-sm font-bold outline-none transition shadow-sm text-gray-700"
+                                className="glass-input w-full px-5 py-4 rounded-2xl text-sm font-bold text-gray-800 placeholder-gray-500"
                                 value={eventDate}
                                 onChange={(e) => setEventDate(e.target.value)}
                             />
@@ -95,7 +93,7 @@ function CreateWishlist() {
                             <AlignLeft size={14} /> Description
                         </label>
                         <textarea
-                            className="w-full px-5 py-4 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 text-sm font-bold outline-none transition shadow-sm min-h-[120px]"
+                            className="glass-input w-full px-5 py-4 rounded-2xl text-sm font-bold text-gray-800 placeholder-gray-500 min-h-[120px]"
                             rows="4"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
@@ -103,19 +101,19 @@ function CreateWishlist() {
                         ></textarea>
                     </div>
 
-                    <div className="bg-indigo-50/50 backdrop-blur-sm p-6 rounded-3xl border border-indigo-100/50 flex items-start gap-4 transition-all hover:bg-indigo-50">
+                    <div className="bg-[#E7CDCE]/30 backdrop-blur-sm p-6 rounded-3xl border border-[#EAA8AC]/50 flex items-start gap-4 transition-all hover:bg-[#E7CDCE]/50">
                         <div className="relative flex items-center justify-center pt-1">
                             <input
                                 type="checkbox"
                                 id="isPublic"
-                                className="peer h-6 w-6 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded-lg cursor-pointer transition-all border-2"
+                                className="peer h-6 w-6 text-[#C00645] focus:ring-[#D05D65] border-gray-300 rounded-lg cursor-pointer transition-all border-2"
                                 checked={isPublic}
                                 onChange={(e) => setIsPublic(e.target.checked)}
                             />
                         </div>
                         <label htmlFor="isPublic" className="flex-1 cursor-pointer select-none">
                             <div className="flex items-center gap-2 mb-1">
-                                {isPublic ? <Globe size={16} className="text-indigo-600" /> : <Lock size={16} className="text-gray-400" />}
+                                {isPublic ? <Globe size={16} className="text-[#C00645]" /> : <Lock size={16} className="text-gray-400" />}
                                 <span className="font-black text-gray-900 text-sm uppercase tracking-wider">Make Public</span>
                             </div>
                             <span className="text-gray-500 text-xs font-medium leading-relaxed block">
@@ -131,14 +129,14 @@ function CreateWishlist() {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             type="submit" 
-                            className="flex-1 bg-gray-900 text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-black transition-all shadow-xl shadow-gray-200 flex items-center justify-center gap-2"
+                            className="flex-1 btn-primary py-4 rounded-2xl font-black text-sm uppercase tracking-widest flex items-center justify-center gap-2"
                         >
                             <Plus size={20} strokeWidth={3} /> Create Registry
                         </motion.button>
                         <button 
                             type="button" 
                             onClick={() => navigate('/dashboard')} 
-                            className="px-8 py-4 bg-white text-gray-500 border border-gray-200 rounded-2xl font-bold text-sm transition-all hover:bg-gray-50 hover:text-gray-900 hover:border-gray-300"
+                            className="px-8 py-4 glass-button text-gray-700 rounded-2xl font-bold text-sm"
                         >
                             Cancel
                         </button>

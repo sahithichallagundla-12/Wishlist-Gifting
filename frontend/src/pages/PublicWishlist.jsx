@@ -67,14 +67,10 @@ function PublicWishlist() {
             animate={{ opacity: 1 }}
             className="max-w-5xl mx-auto mt-6 relative pb-20"
         >
-            {/* Background Glows */}
-            <div className="bg-glow-purple opacity-30"></div>
-            <div className="bg-glow-pink opacity-20" style={{ top: '40%', right: '0', left: 'auto' }}></div>
+            {/* Background Glows Removed */}
 
             <div className="glass-card p-10 md:p-14 rounded-3xl shadow-2xl border border-white/40 mb-12 text-center relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500"></div>
-                <div className="absolute -top-24 -left-24 w-64 h-64 bg-pink-100/50 rounded-full blur-3xl"></div>
-                <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-indigo-100/50 rounded-full blur-3xl"></div>
+                <div className="absolute top-0 left-0 w-full h-2 bg-[#C00645]"></div>
                 
                 <motion.div
                     initial={{ scale: 0.8, opacity: 0 }}
@@ -83,15 +79,17 @@ function PublicWishlist() {
                     className="relative z-10"
                 >
                     <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white shadow-sm mb-6">
-                        <Gift className="text-indigo-600" size={40} />
+                        <Gift className="text-[#C00645]" size={40} />
                     </div>
-                    <h2 className="text-4xl md:text-5xl font-black mb-4 text-gray-900 tracking-tight">{wishlist.title}</h2>
+                    <h2 className="text-4xl md:text-5xl font-black mb-4 text-gray-900 tracking-tight">
+                        {wishlist.userId?.name ? `${wishlist.userId.name}'s Wishlist` : wishlist.title}
+                    </h2>
                     <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed font-medium">
                         {wishlist.description || "Welcome to my curated gift collection. Your presence is the greatest gift, but if you're so inclined, here are some things I'd love."}
                     </p>
                     
                     {daysLeft > 0 && (
-                        <div className="mt-8 inline-flex items-center gap-2 bg-indigo-50 text-indigo-700 px-6 py-2.5 rounded-full font-bold text-sm border border-indigo-100 shadow-sm">
+                        <div className="mt-8 inline-flex items-center gap-2 bg-[#E7CDCE] text-[#C00645] px-6 py-2.5 rounded-full font-bold text-sm border border-[#EAA8AC] shadow-sm">
                             <span className="animate-pulse">⏳</span> {daysLeft} Days to go!
                         </div>
                     )}
@@ -99,7 +97,7 @@ function PublicWishlist() {
             </div>
 
             <div className="flex items-center gap-3 mb-8 px-4">
-                <Heart className="text-pink-500" size={24} fill="currentColor" />
+                <Heart className="text-[#C00645]" size={24} fill="currentColor" />
                 <h3 className="text-2xl font-black text-gray-800 tracking-tight">Gift Ideas</h3>
             </div>
 
@@ -147,7 +145,7 @@ function PublicWishlist() {
                                         </div>
                                         <p className="text-gray-500 text-sm line-clamp-2 mb-3 font-medium leading-relaxed">{item.description}</p>
                                         {item.productLink && (
-                                            <a href={item.productLink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-indigo-600 hover:text-indigo-800 font-bold text-xs group/link">
+                                            <a href={item.productLink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-[#C00645] hover:text-[#A00539] font-bold text-xs group/link">
                                                 View Product <ExternalLink size={14} className="group-hover/link:translate-x-0.5 transition-transform" />
                                             </a>
                                         )}
@@ -168,7 +166,7 @@ function PublicWishlist() {
                                                         <input 
                                                             type="text" 
                                                             placeholder="Your Name" 
-                                                            className="flex-1 px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 text-sm font-medium outline-none transition shadow-inner"
+                                                            className="flex-1 px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-4 focus:ring-[#E7CDCE] focus:border-[#C00645] text-sm font-medium outline-none transition shadow-inner"
                                                             value={reservedBy}
                                                             onChange={(e) => setReservedBy(e.target.value)}
                                                             autoFocus
@@ -194,7 +192,7 @@ function PublicWishlist() {
                                                         whileHover={{ scale: 1.02 }}
                                                         whileTap={{ scale: 0.98 }}
                                                         onClick={() => setReservingItemId(item._id)}
-                                                        className="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200 flex items-center justify-center gap-2"
+                                                        className="w-full btn-primary py-4 rounded-2xl font-bold flex items-center justify-center gap-2"
                                                     >
                                                         Reserve Gift <ArrowRight size={18} />
                                                     </motion.button>

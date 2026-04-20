@@ -8,11 +8,13 @@ import Dashboard from './pages/Dashboard'
 import CreateWishlist from './pages/CreateWishlist'
 import WishlistDetail from './pages/WishlistDetail'
 import PublicWishlist from './pages/PublicWishlist'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 
 // Sub-component to handle routing access and animated layouts cleanly
 function AnimatedRoutes() {
   const location = useLocation();
-  const isImmersivePage = location.pathname === '/login' || location.pathname === '/register';
+  const isImmersivePage = ['/login', '/register', '/forgot-password', '/reset-password'].some(path => location.pathname.startsWith(path));
 
   return (
     <div className="flex flex-col min-h-screen bg-transparent">
@@ -36,6 +38,8 @@ function AnimatedRoutes() {
             <Route path="/create-wishlist" element={<CreateWishlist />} />
             <Route path="/wishlists/:id" element={<WishlistDetail />} />
             <Route path="/public/wishlists/:id" element={<PublicWishlist />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
           </Routes>
         </AnimatePresence>
       </main>

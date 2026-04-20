@@ -25,16 +25,16 @@ function Login({ embedded = false }) {
 
     return (
         <div className={containerClasses}>
-            <div className="glass-card rounded-3xl p-10 backdrop-blur-2xl border border-white/40 shadow-2xl relative overflow-hidden group">
+            <div className="glass-panel p-10 relative overflow-hidden group">
                 {/* Decorative inner glow */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500"></div>
+                <div className="absolute top-0 left-0 w-full h-1 bg-[#C00645]"></div>
                 
                 <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/50 mb-4 shadow-sm">
-                        <LogIn className="text-indigo-600" size={32} />
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full glass-panel mb-4">
+                        <LogIn className="text-[#C00645]" size={32} />
                     </div>
-                    <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">Welcome Back</h2>
-                    <p className="text-gray-500 font-medium mt-2">Sign in to access your luxury registry</p>
+                    <h2 className="text-3xl font-extrabold text-gradient">Welcome Back</h2>
+                    <p className="text-gray-600 font-medium mt-2">Sign in to access your luxury registry</p>
                 </div>
                 
                 {error && (
@@ -48,7 +48,7 @@ function Login({ embedded = false }) {
                         <input
                             type="email"
                             placeholder="Email Address"
-                            className="w-full px-5 py-4 bg-white/60 border border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-400 outline-none text-gray-800 placeholder-gray-400 transition"
+                            className="glass-input w-full px-5 py-4 rounded-xl text-gray-800 placeholder-gray-500 font-medium"
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             required
@@ -58,19 +58,24 @@ function Login({ embedded = false }) {
                         <input
                             type="password"
                             placeholder="Password"
-                            className="w-full px-5 py-4 bg-white/60 border border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-400 outline-none text-gray-800 placeholder-gray-400 transition"
+                            className="glass-input w-full px-5 py-4 rounded-xl text-gray-800 placeholder-gray-500 font-medium"
                             value={formData.password}
                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                             required
                         />
+                        <div className="flex justify-end mt-1">
+                            <Link to="/forgot-password" size="sm" className="text-xs font-semibold text-[#D05D65] hover:text-[#C00645] transition">
+                                Forgot Password?
+                            </Link>
+                        </div>
                     </div>
-                    <button type="submit" className="w-full bg-gray-900 hover:bg-black text-white font-semibold py-4 rounded-xl transition duration-300 transform hover:scale-[1.02] hover:shadow-xl mt-2">
+                    <button type="submit" className="w-full btn-primary font-bold py-4 rounded-xl mt-2">
                         Sign In Securely
                     </button>
                 </form>
                 
                 <div className="mt-8 text-center text-sm font-medium text-gray-500">
-                    Don't have an account? <Link to="/register" className="text-indigo-600 hover:text-indigo-800 transition">Register here</Link>
+                    Don't have an account? <Link to="/register" className="text-[#C00645] hover:text-[#A00539] transition">Register here</Link>
                 </div>
             </div>
         </div>

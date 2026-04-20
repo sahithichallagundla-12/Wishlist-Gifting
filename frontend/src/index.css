@@ -1,69 +1,80 @@
 @import "tailwindcss";
 
 body {
-  background-color: #FAFAFA;
-  color: #111827;
+  background: linear-gradient(135deg, #F6F1F1, #E7CDCE, #F6F1F1);
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: #1F2937;
   margin: 0;
-  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
   overflow-x: hidden;
 }
 
-/* Glassmorphism Utilities */
-.glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+:root {
+  --primary: #52525B;
+  --secondary: #71717A;
+  --accent: #C00645;
+}
+
+/* Glassmorphism Systems (Controlled) */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.glass-panel:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: rgba(192, 6, 69, 0.4);
+  box-shadow: 0 0 0 4px rgba(192, 6, 69, 0.1);
+}
+
+/* Button Systems */
+.btn-primary {
+  background-color: #C00645;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #A00539;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(192, 6, 69, 0.2);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 4px 60px rgba(0, 0, 0, 0.05);
+  color: #1F2937;
+  transition: all 0.3s ease;
 }
 
-.glass-dark {
-  background: rgba(17, 24, 39, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.45);
+  transform: translateY(-1px);
 }
 
-.glass-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05);
-}
-
-/* Abstract Glowing Backgrounds */
-.bg-glow-pink {
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(236,72,153,0.15) 0%, rgba(236,72,153,0) 70%);
-  border-radius: 50%;
-  top: -10%;
-  left: -10%;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.bg-glow-purple {
-  position: absolute;
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(139,92,246,0) 70%);
-  border-radius: 50%;
-  bottom: -20%;
-  right: -10%;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.bg-glow-gold {
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(245,158,11,0.12) 0%, rgba(245,158,11,0) 70%);
-  border-radius: 50%;
-  top: 40%;
-  left: 20%;
-  z-index: -1;
-  pointer-events: none;
+.text-gradient {
+  background: linear-gradient(90deg, #C00645, #E1848C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }

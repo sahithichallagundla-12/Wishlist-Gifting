@@ -15,7 +15,7 @@ const getWishlists = asyncHandler(async (req, res) => {
 // @route   GET /api/wishlists/:id
 // @access  Public (if isPublic is true)
 const getWishlistById = asyncHandler(async (req, res) => {
-    const wishlist = await Wishlist.findById(req.params.id);
+    const wishlist = await Wishlist.findById(req.params.id).populate('userId', 'name');
 
     if (!wishlist) {
         res.status(404);

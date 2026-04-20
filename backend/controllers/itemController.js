@@ -27,17 +27,14 @@ const addItem = asyncHandler(async (req, res) => {
         throw new Error('Product name is required');
     }
 
-    if (!req.body.productLink || !req.body.productLink.trim()) {
-        res.status(400);
-        throw new Error('Product URL is required');
-    }
-
-    // Basic URL format validation
-    try {
-        new URL(req.body.productLink);
-    } catch (_) {
-        res.status(400);
-        throw new Error('Product URL must be a valid URL (e.g. https://example.com)');
+    // Basic URL format validation if provided
+    if (req.body.productLink && req.body.productLink.trim()) {
+        try {
+            new URL(req.body.productLink);
+        } catch (_) {
+            res.status(400);
+            throw new Error('Product URL must be a valid URL (e.g. https://example.com)');
+        }
     }
 
     // Attempt to dynamically scrape image or generate one if scraping fails
@@ -46,7 +43,7 @@ const addItem = asyncHandler(async (req, res) => {
     const item = await Item.create({
         wishlistId: req.params.wishlistId,
         name: req.body.name,
-        productLink: req.body.productLink,
+        productLink: req.body.productLink || '',
         description: req.body.description,
         imageUrl: extractedImageUrl
     });

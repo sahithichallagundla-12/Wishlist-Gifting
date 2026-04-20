@@ -72,13 +72,11 @@ function WishlistDetail() {
             setFormError('Product name is required');
             return;
         }
-        if (!newItem.productLink.trim()) {
-            setFormError('Product URL is required');
-            return;
-        }
-        if (!isValidUrl(newItem.productLink)) {
-            setFormError('Please enter a valid URL (e.g. https://amazon.com/...)');
-            return;
+        if (newItem.productLink.trim()) {
+            if (!isValidUrl(newItem.productLink)) {
+                setFormError('Please enter a valid URL (e.g. https://amazon.com/...)');
+                return;
+            }
         }
 
         setExtracting(true);
@@ -130,10 +128,10 @@ function WishlistDetail() {
             animate={{ opacity: 1 }}
             className="max-w-5xl mx-auto mt-6 relative"
         >
-            <div className="bg-glow-pink opacity-50"></div>
+            {/* Background Glows Removed */}
             
             <div className="glass-card p-8 md:p-10 rounded-3xl shadow-xl border border-white/40 mb-10 flex flex-col md:flex-row justify-between items-start md:items-center relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-indigo-100 to-transparent rounded-full blur-3xl opacity-60"></div>
+                {/* Inner background glow removed */}
                 
                 <div className="relative z-10">
                     <h2 className="text-4xl font-black mb-3 text-gray-900 tracking-tight">{wishlist.title}</h2>
@@ -143,7 +141,7 @@ function WishlistDetail() {
                             {wishlist.isPublic ? "Public Wishlist" : "Private Wishlist"}
                         </span>
                         {daysLeft > 0 && (
-                            <span className="text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-blue-100 text-blue-700 border border-blue-200 shadow-sm">
+                            <span className="text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-[#E7CDCE] text-[#C00645] border border-[#EAA8AC] shadow-sm">
                                 ⏳ {daysLeft} days left
                             </span>
                         )}
@@ -153,7 +151,7 @@ function WishlistDetail() {
                         {wishlist.isPublic && (
                             <button 
                                 onClick={copyLink} 
-                                className="bg-white text-indigo-600 px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-indigo-50 border border-indigo-100 shadow-sm transition font-bold"
+                                className="bg-white text-[#C00645] px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-[#E7CDCE]/30 border border-[#EAA8AC]/50 shadow-sm transition font-bold"
                             >
                                 <Link2 size={18} /> Copy Public Link
                             </button>
@@ -216,7 +214,7 @@ function WishlistDetail() {
                                                 </div>
                                                 <p className="text-gray-500 text-sm mb-3 line-clamp-2 pr-4">{item.description}</p>
                                                 {item.productLink && (
-                                                    <a href={item.productLink} target="_blank" rel="noreferrer" className="text-indigo-600 font-semibold text-sm flex items-center gap-1.5 hover:text-indigo-800 transition-colors w-fit">
+                                                    <a href={item.productLink} target="_blank" rel="noreferrer" className="text-[#C00645] font-semibold text-sm flex items-center gap-1.5 hover:text-[#A00539] transition-colors w-fit">
                                                         Visit Product Link <ExternalLink size={14} />
                                                     </a>
                                                 )}
@@ -234,7 +232,7 @@ function WishlistDetail() {
 
                 <div>
                     <div className="glass-card p-7 rounded-3xl border border-white/50 shadow-xl sticky top-28 overflow-hidden relative">
-                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-teal-400 to-indigo-500"></div>
+                        <div className="absolute top-0 left-0 w-full h-1 bg-[#C00645]"></div>
                         <h3 className="text-xl font-extrabold mb-5 text-gray-900">Add New Gift</h3>
                         {formError && (
                             <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="bg-red-50 text-red-700 text-sm p-4 rounded-xl mb-5 border border-red-100 font-bold">
@@ -244,27 +242,26 @@ function WishlistDetail() {
                         <form onSubmit={handleAddItem} className="space-y-5 relative z-10">
                             <div>
                                 <label className="block text-xs uppercase font-black tracking-wider text-gray-500 mb-2 flex justify-between">
-                                    Product Name <span className="text-red-400">*</span>
+                                    Product Name <span className="text-[#C00645]">*</span>
                                 </label>
                                 <input
                                     type="text"
                                     placeholder="e.g. Sony WH-1000XM5"
                                     required
-                                    className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm font-medium outline-none transition"
+                                    className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#C00645]/20 focus:border-[#C00645] text-sm font-medium outline-none transition"
                                     value={newItem.name}
                                     onChange={(e) => { setNewItem({...newItem, name: e.target.value}); setFormError(''); }}
                                 />
                             </div>
                             <div>
                                 <label className="block text-xs uppercase font-black tracking-wider text-gray-500 mb-2 flex justify-between">
-                                    <span>Product URL <span className="text-red-400">*</span></span>
-                                    <span className="text-indigo-400 text-[10px] uppercase tracking-widest font-bold">✨ Auto-Image</span>
+                                    <span>Product URL <span className="text-gray-400 font-medium">(Optional)</span></span>
+                                    <span className="text-[#C00645] text-[10px] uppercase tracking-widest font-bold">✨ Auto-Image</span>
                                 </label>
                                 <input
                                     type="url"
                                     placeholder="https://amazon.com/..."
-                                    required
-                                    className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm font-medium outline-none transition"
+                                    className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#C00645]/20 focus:border-[#C00645] text-sm font-medium outline-none transition"
                                     value={newItem.productLink}
                                     onChange={(e) => { setNewItem({...newItem, productLink: e.target.value}); setFormError(''); }}
                                 />
@@ -273,7 +270,7 @@ function WishlistDetail() {
                                 <label className="block text-xs uppercase font-black tracking-wider text-gray-500 mb-2">Description (Optional)</label>
                                 <textarea
                                     placeholder="Color: Black, Size: M..."
-                                    className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm font-medium outline-none transition"
+                                    className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#C00645]/20 focus:border-[#C00645] text-sm font-medium outline-none transition"
                                     rows="3"
                                     value={newItem.description}
                                     onChange={(e) => setNewItem({...newItem, description: e.target.value})}
@@ -284,7 +281,7 @@ function WishlistDetail() {
                                 whileTap={{ scale: 0.98 }}
                                 type="submit" 
                                 disabled={extracting} 
-                                className="w-full bg-gray-900 text-white font-bold py-3.5 rounded-xl hover:bg-black transition-all flex justify-center items-center gap-2 disabled:opacity-75 disabled:scale-100 shadow-md"
+                                className="w-full btn-primary font-bold py-3.5 rounded-xl flex justify-center items-center gap-2 disabled:opacity-75 disabled:scale-100"
                             >
                                 {extracting ? (
                                     <>
