@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { UserPlus } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { FormInput, ErrorMessage, PrimaryButton } from '../components';
 
 function Register() {
     const [formData, setFormData] = useState({ name: '', email: '', password: '' });
@@ -42,46 +43,31 @@ function Register() {
                         <p className="text-gray-600 font-medium mt-2">Create an account to start curating</p>
                     </div>
                     
-                    {error && (
-                        <div className="bg-red-50 text-red-600 p-4 rounded-xl mb-6 text-sm font-semibold border border-red-100 flex items-center justify-center">
-                            {error}
-                        </div>
-                    )}
+                    <ErrorMessage message={error} />
                     
                     <form onSubmit={onSubmit} className="space-y-5">
-                        <div>
-                            <input
-                                type="text"
-                                placeholder="Full Name"
-                                className="glass-input w-full px-5 py-4 rounded-xl text-gray-800 placeholder-gray-500 font-medium"
-                                value={formData.name}
-                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                required
-                            />
-                        </div>
-                        <div>
-                            <input
-                                type="email"
-                                placeholder="Email Address"
-                                className="glass-input w-full px-5 py-4 rounded-xl text-gray-800 placeholder-gray-500 font-medium"
-                                value={formData.email}
-                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                required
-                            />
-                        </div>
-                        <div>
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                className="glass-input w-full px-5 py-4 rounded-xl text-gray-800 placeholder-gray-500 font-medium"
-                                value={formData.password}
-                                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                required
-                            />
-                        </div>
-                        <button type="submit" className="w-full btn-primary font-bold py-4 rounded-xl mt-2">
-                            Create Account
-                        </button>
+                        <FormInput
+                            type="text"
+                            placeholder="Full Name"
+                            value={formData.name}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            required
+                        />
+                        <FormInput
+                            type="email"
+                            placeholder="Email Address"
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            required
+                        />
+                        <FormInput
+                            type="password"
+                            placeholder="Password"
+                            value={formData.password}
+                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                            required
+                        />
+                        <PrimaryButton type="submit">Create Account</PrimaryButton>
                     </form>
                     
                     <div className="mt-8 text-center text-sm font-medium text-gray-500">

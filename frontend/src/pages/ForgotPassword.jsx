@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { Mail, ArrowLeft, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { FormInput, ErrorMessage, PrimaryButton } from '../components';
 
 function ForgotPassword() {
     const [email, setEmail] = useState('');
@@ -60,29 +61,18 @@ function ForgotPassword() {
                         </div>
                     )}
 
-                    {error && (
-                        <div className="bg-red-50 text-red-600 p-4 rounded-xl mb-6 text-sm font-bold border border-red-100 text-center">
-                            {error}
-                        </div>
-                    )}
+                    <ErrorMessage message={error} />
 
                     {!message && (
                         <form onSubmit={onSubmit} className="space-y-6">
-                            <div>
-                                <input
-                                    type="email"
-                                    placeholder="Email Address"
-                                    className="glass-input w-full px-5 py-4 rounded-xl text-gray-800 placeholder-gray-500 font-medium"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
-                                />
-                            </div>
-                            <button 
-                                type="submit" 
-                                disabled={loading}
-                                className="w-full btn-primary font-bold py-4 rounded-xl mt-2 flex justify-center items-center gap-2 disabled:opacity-75"
-                            >
+                            <FormInput
+                                type="email"
+                                placeholder="Email Address"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                            <PrimaryButton type="submit" disabled={loading}>
                                 {loading ? (
                                     <>
                                         <Loader2 className="animate-spin" size={20} /> Sending Link...
@@ -90,7 +80,7 @@ function ForgotPassword() {
                                 ) : (
                                     'Send Reset Link'
                                 )}
-                            </button>
+                            </PrimaryButton>
                         </form>
                     )}
 

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Calendar, Type, AlignLeft, Globe, Lock, ArrowLeft, Plus } from 'lucide-react';
+import { FormInput, PrimaryButton } from '../components';
 
 const API_URL = 'http://localhost:5000/api/wishlists/';
 
@@ -24,11 +25,25 @@ function CreateWishlist() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        
+        // Validate that event date is in the future
+        if (eventDate) {
+            const selectedDate = new Date(eventDate);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            if (selectedDate < today) {
+                alert('Event date must be in the future');
+                return;
+            }
+        }
+        
         try {
             await axios.post(API_URL, { title, description, eventDate, isPublic });
             navigate('/dashboard');
         } catch (err) {
             console.error(err);
+            alert(err.response?.data?.message || 'Failed to create registry');
         }
     };
 
@@ -61,20 +76,13 @@ function CreateWishlist() {
 
                 <form onSubmit={onSubmit} className="space-y-8 relative z-10">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="space-y-2">
-                            <label className="flex items-center gap-2 text-xs uppercase font-black tracking-widest text-gray-400 ml-1">
-                                <Type size={14} /> Occasion Title
-                            </label>
-                            <input
-                                type="text"
-                                className="glass-input w-full px-5 py-4 rounded-2xl text-sm font-bold text-gray-800 placeholder-gray-500"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                                placeholder="e.g. Dream Wedding Registry"
-                                required
-                            />
-                        </div>
-
+                        <FormInput
+                            label="Occasion Title"
+                            placeholder="e.g. Dream Wedding Registry"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            required
+                        />
                         <div className="space-y-2">
                             <label className="flex items-center gap-2 text-xs uppercase font-black tracking-widest text-gray-400 ml-1">
                                 <Calendar size={14} /> Event Date
@@ -84,6 +92,7 @@ function CreateWishlist() {
                                 className="glass-input w-full px-5 py-4 rounded-2xl text-sm font-bold text-gray-800 placeholder-gray-500"
                                 value={eventDate}
                                 onChange={(e) => setEventDate(e.target.value)}
+                                min={new Date().toISOString().split('T')[0]}
                             />
                         </div>
                     </div>
@@ -125,14 +134,9 @@ function CreateWishlist() {
                     </div>
 
                     <div className="pt-6 flex gap-4">
-                        <motion.button 
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            type="submit" 
-                            className="flex-1 btn-primary py-4 rounded-2xl font-black text-sm uppercase tracking-widest flex items-center justify-center gap-2"
-                        >
+                        <PrimaryButton type="submit" className="flex-1">
                             <Plus size={20} strokeWidth={3} /> Create Registry
-                        </motion.button>
+                        </PrimaryButton>
                         <button 
                             type="button" 
                             onClick={() => navigate('/dashboard')} 

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { Trash2, Share2, ExternalLink, Image as ImageIcon, Loader2, Link2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FormInput, ErrorMessage, PrimaryButton } from '../components';
 
 const API_URL = 'http://localhost:5000/api/wishlists/';
 const ITEM_API_URL = 'http://localhost:5000/api/items/';
@@ -12,7 +13,7 @@ function WishlistDetail() {
     const { id } = useParams();
     const [wishlist, setWishlist] = useState(null);
     const [items, setItems] = useState([]);
-    const [newItem, setNewItem] = useState({ name: '', productLink: '', description: '' });
+    const [newItem, setNewItem] = useState({ name: '', productLink: '', description: '', imageUrl: '' });
     const [extracting, setExtracting] = useState(false);
     const [formError, setFormError] = useState('');
     
@@ -78,13 +79,19 @@ function WishlistDetail() {
                 return;
             }
         }
+        if (newItem.imageUrl.trim()) {
+            if (!isValidUrl(newItem.imageUrl)) {
+                setFormError('Image URL must be a valid URL');
+                return;
+            }
+        }
 
         setExtracting(true);
 
         try {
             const res = await axios.post(`${API_URL}${id}/items`, newItem);
             setItems([...items, res.data]);
-            setNewItem({ name: '', productLink: '', description: '' });
+            setNewItem({ name: '', productLink: '', description: '', imageUrl: '' });
         } catch (err) {
             setFormError(err.response?.data?.message || 'Failed to add item');
         }
@@ -234,38 +241,29 @@ function WishlistDetail() {
                     <div className="glass-card p-7 rounded-3xl border border-white/50 shadow-xl sticky top-28 overflow-hidden relative">
                         <div className="absolute top-0 left-0 w-full h-1 bg-[#C00645]"></div>
                         <h3 className="text-xl font-extrabold mb-5 text-gray-900">Add New Gift</h3>
-                        {formError && (
-                            <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="bg-red-50 text-red-700 text-sm p-4 rounded-xl mb-5 border border-red-100 font-bold">
-                                {formError}
-                            </motion.div>
-                        )}
+                        <ErrorMessage message={formError} />
                         <form onSubmit={handleAddItem} className="space-y-5 relative z-10">
-                            <div>
-                                <label className="block text-xs uppercase font-black tracking-wider text-gray-500 mb-2 flex justify-between">
-                                    Product Name <span className="text-[#C00645]">*</span>
-                                </label>
-                                <input
-                                    type="text"
-                                    placeholder="e.g. Sony WH-1000XM5"
-                                    required
-                                    className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#C00645]/20 focus:border-[#C00645] text-sm font-medium outline-none transition"
-                                    value={newItem.name}
-                                    onChange={(e) => { setNewItem({...newItem, name: e.target.value}); setFormError(''); }}
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-xs uppercase font-black tracking-wider text-gray-500 mb-2 flex justify-between">
-                                    <span>Product URL <span className="text-gray-400 font-medium">(Optional)</span></span>
-                                    <span className="text-[#C00645] text-[10px] uppercase tracking-widest font-bold">✨ Auto-Image</span>
-                                </label>
-                                <input
-                                    type="url"
-                                    placeholder="https://amazon.com/..."
-                                    className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#C00645]/20 focus:border-[#C00645] text-sm font-medium outline-none transition"
-                                    value={newItem.productLink}
-                                    onChange={(e) => { setNewItem({...newItem, productLink: e.target.value}); setFormError(''); }}
-                                />
-                            </div>
+                            <FormInput
+                                label="Product Name"
+                                placeholder="e.g. Sony WH-1000XM5"
+                                required
+                                value={newItem.name}
+                                onChange={(e) => { setNewItem({...newItem, name: e.target.value}); setFormError(''); }}
+                            />
+                            <FormInput
+                                label="Product URL (Optional)"
+                                type="url"
+                                placeholder="https://amazon.com/..."
+                                value={newItem.productLink}
+                                onChange={(e) => { setNewItem({...newItem, productLink: e.target.value}); setFormError(''); }}
+                            />
+                            <FormInput
+                                label="Image URL (Optional)"
+                                type="url"
+                                placeholder="https://example.com/image.jpg"
+                                value={newItem.imageUrl}
+                                onChange={(e) => { setNewItem({...newItem, imageUrl: e.target.value}); setFormError(''); }}
+                            />
                             <div>
                                 <label className="block text-xs uppercase font-black tracking-wider text-gray-500 mb-2">Description (Optional)</label>
                                 <textarea
@@ -276,21 +274,15 @@ function WishlistDetail() {
                                     onChange={(e) => setNewItem({...newItem, description: e.target.value})}
                                 ></textarea>
                             </div>
-                            <motion.button 
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                type="submit" 
-                                disabled={extracting} 
-                                className="w-full btn-primary font-bold py-3.5 rounded-xl flex justify-center items-center gap-2 disabled:opacity-75 disabled:scale-100"
-                            >
+                            <PrimaryButton type="submit" disabled={extracting}>
                                 {extracting ? (
                                     <>
-                                        <Loader2 className="animate-spin" size={18} /> Gathering Image ...
+                                        <Loader2 className="animate-spin" size={18} /> Adding Item ...
                                     </>
                                 ) : (
                                     'Add to Registry'
                                 )}
-                            </motion.button>
+                            </PrimaryButton>
                         </form>
                     </div>
                 </div>

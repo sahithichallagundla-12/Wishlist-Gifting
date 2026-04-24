@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { LogIn } from 'lucide-react';
+import { FormInput, ErrorMessage, PrimaryButton } from '../components';
 
 function Login({ embedded = false }) {
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -37,41 +38,31 @@ function Login({ embedded = false }) {
                     <p className="text-gray-600 font-medium mt-2">Sign in to access your luxury registry</p>
                 </div>
                 
-                {error && (
-                    <div className="bg-red-50 text-red-600 p-4 rounded-xl mb-6 text-sm font-semibold border border-red-100 flex items-center justify-center">
-                        {error}
-                    </div>
-                )}
+                <ErrorMessage message={error} />
                 
                 <form onSubmit={onSubmit} className="space-y-5">
+                    <FormInput
+                        type="email"
+                        placeholder="Email Address"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        required
+                    />
                     <div>
-                        <input
-                            type="email"
-                            placeholder="Email Address"
-                            className="glass-input w-full px-5 py-4 rounded-xl text-gray-800 placeholder-gray-500 font-medium"
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <input
+                        <FormInput
                             type="password"
                             placeholder="Password"
-                            className="glass-input w-full px-5 py-4 rounded-xl text-gray-800 placeholder-gray-500 font-medium"
                             value={formData.password}
                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                             required
                         />
                         <div className="flex justify-end mt-1">
-                            <Link to="/forgot-password" size="sm" className="text-xs font-semibold text-[#D05D65] hover:text-[#C00645] transition">
+                            <Link to="/forgot-password" className="text-xs font-semibold text-[#D05D65] hover:text-[#C00645] transition">
                                 Forgot Password?
                             </Link>
                         </div>
                     </div>
-                    <button type="submit" className="w-full btn-primary font-bold py-4 rounded-xl mt-2">
-                        Sign In Securely
-                    </button>
+                    <PrimaryButton type="submit">Sign In Securely</PrimaryButton>
                 </form>
                 
                 <div className="mt-8 text-center text-sm font-medium text-gray-500">

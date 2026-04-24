@@ -4,6 +4,7 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { PlusCircle, Gift, LogOut, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { LoadingSpinner, GlassButton } from '../components';
 
 const API_URL = 'http://localhost:5000/api/wishlists/';
 
@@ -83,16 +84,14 @@ function Dashboard() {
                     <Link to="/create-wishlist" className="btn-primary px-5 py-2.5 rounded-xl shadow-sm flex items-center gap-2 font-medium">
                         <PlusCircle size={20} /> Create Wishlist
                     </Link>
-                    <button onClick={handleLogout} className="glass-button text-gray-700 px-5 py-2.5 rounded-xl flex items-center gap-2 hover:text-gray-900 font-medium">
+                    <GlassButton onClick={handleLogout}>
                         <LogOut size={20} /> Logout
-                    </button>
+                    </GlassButton>
                 </div>
             </div>
 
             {authLoading || fetching ? (
-                <div className="flex justify-center items-center py-40">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#C00645]"></div>
-                </div>
+                <LoadingSpinner />
             ) : wishlists.length === 0 ? (
                 <motion.div 
                     initial={{ scale: 0.95, opacity: 0 }}
